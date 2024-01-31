@@ -1,16 +1,20 @@
-// Import everything needed to use the `useQuery` hook
-
-import { CreateUser } from "./components/CreateUser";
-import DisplayUsers from "./components/DisplayUsers";
-import Nav from "./components/Nav";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import TypeRoom from "./pages/TypeRoom";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+import Feedback from "./pages/Feedback";
 
 export default function App() {
     return (
-        <div className="flex items-center justify-center flex-col">
-            <h2>My first Apollo app 🚀</h2>
-            <Nav />
-            <CreateUser />
-            <DisplayUsers />
+        <div>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/type-room" element={<TypeRoom />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about-me" element={<About />} />
+                <Route path="/feedback" element={<Feedback />} />
+            </Routes>
         </div>
     );
 }
