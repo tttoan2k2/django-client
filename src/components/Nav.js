@@ -122,6 +122,7 @@ const Nav = () => {
                         Get Started
                     </button>
                 </div>
+
             </section>
         </nav>
     );
