@@ -51,7 +51,7 @@ const Nav = () => {
     ];
 
     return (
-        <nav className="flex items-center justify-between px-8 py-6">
+        <nav className="flex items-center justify-between px-8 py-6 lg:px-[50px]">
             <section className="flex items-center justify-center gap-4">
                 <HiOutlineMenu
                     onClick={() => setIsMenuOpen(true)}
@@ -122,7 +122,6 @@ const Nav = () => {
                         Get Started
                     </button>
                 </div>
-
             </section>
         </nav>
     );
