@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "../components/Nav";
+import Footer from "../components/Footer";
 import { FaHeart, FaMoneyBillAlt, FaGlobe } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
@@ -30,7 +31,6 @@ const About = () => {
     return (
         <div className="bg-[#F8F7FC]">
             <Nav />
-
             <img
                 className="h-[500px]  w-full object-cover"
                 src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?cs=srgb&dl=pexels-james-wheeler-417074.jpg&fm=jpg"
@@ -174,6 +174,7 @@ const About = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
