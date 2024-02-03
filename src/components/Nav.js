@@ -71,7 +71,9 @@ const Nav = () => {
                     <Link
                         key={i}
                         to={link.href}
-                        className="hidden text-gray-600 md:flex items-center justify-start flex-col gap-1 hover:text-black"
+                        className={`hidden  md:flex items-center justify-start flex-col gap-1 hover:text-black ${
+                            link.active ? "text-black" : "text-gray-600"
+                        }`}
                     >
                         <link.icon className="text-[26px]" />
                         <p className="text-[16px]">{link.title}</p>

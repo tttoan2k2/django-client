@@ -19,7 +19,7 @@ const Card = ({
             />
             <div className="flex items-center justify-between w-[300px] mt-4">
                 <h1 className="text-[16px] font-normal">{placeName}</h1>
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center gap-1">
                     <FaStar />
                     <p className="text-[16px] font-[200]">{placeStar}</p>
                 </div>
