@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
 import { FaStar } from "react-icons/fa";
+import Footer from "../components/Footer"
 
 const Contact = () => {
     return (
@@ -148,7 +149,7 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
-            
+            <Footer/>
         </div>
     );
 };

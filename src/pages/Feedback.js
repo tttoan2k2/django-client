@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "../components/Nav";
+import Footer from "../components/Footer"
 
 const Feedback = () => {
     return (
@@ -110,10 +111,8 @@ const Feedback = () => {
                     English, so there were no miscommunication issues."</p>
                 </div>
                 <h3 className="pl-20 pb-16">bogl_rkap2022 1/2022 - TRIPADVISOR</h3>
-
-
-
             </div>
+            <Footer />
         </div>
     );
 };
