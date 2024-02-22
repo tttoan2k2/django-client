@@ -6,15 +6,37 @@ import { SiHomeadvisor } from "react-icons/si";
 import { FaInfoCircle } from "react-icons/fa";
 import { BiSolidContact, BiSolidFoodMenu } from "react-icons/bi";
 import { MdOutlineClose, MdFeedback } from "react-icons/md";
-
+import { useQuery, gql } from "@apollo/client";
 import logo from "../assets/Airbnb-Logo.png";
 import clsx from "clsx";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Nav = () => {
+const LOGGED_IN = gql`
+    query {
+        loggedIn {
+            userId
+            username
+        }
+    }
+`;
+
+const Nav = ({ onSearch }) => {
     const currentPath = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
 
-    console.log(currentPath);
+    const { data, error } = useQuery(LOGGED_IN);
+
+    if (error) {
+        console.log(error.message);
+    }
+
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setSearchInput(value);
+        onSearch(value);
+    };
 
     const navLinks = [
         {
@@ -117,14 +139,45 @@ const Nav = () => {
                         id="search-navbar"
                         className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#FF385C] focus:border-[#FF385C] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search..."
+                        value={searchInput}
+                        onChange={handleSearch}
                     />
                 </div>
                 <div>
-                    <button className="px-3 py-2 bg-[#FF385C] rounded-[8px] text-white">
-                        Get Started
-                    </button>
+                    {data ? (
+                        <div className="flex items-center justify-center gap-3">
+                            <p>Welcome, {data.loggedIn.username}</p>
+                            <button
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+
+                                    window.location.reload();
+                                    toast.success("Đăng xuất thành công!", {
+                                        position: "top-center",
+                                        autoClose: 3000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "light",
+                                    });
+                                }}
+                                className="px-3 py-2 bg-[#FF385C] rounded-[8px] text-white hover:bg-[#cb4d64]"
+                            >
+                                Log out
+                            </button>
+                        </div>
+                    ) : (
+                        <Link to="/login">
+                            <button className="px-3 py-2 bg-[#FF385C] rounded-[8px] text-white hover:bg-[#FF385C]">
+                                Get Started
+                            </button>
+                        </Link>
+                    )}
                 </div>
             </section>
+            <ToastContainer />
         </nav>
     );
 };

@@ -1,5 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import Card from "./Card";
+import { useState, useEffect } from "react";
 
 const QUERY_PLACES = gql`
     query GetPlaces {
@@ -16,28 +17,56 @@ const QUERY_PLACES = gql`
     }
 `;
 
-const Cards = () => {
+const Cards = ({ inputValue }) => {
+    const [dataSearch, setDataSearch] = useState([]);
     const { loading, error, data } = useQuery(QUERY_PLACES);
+    const [tranformDataList, setTranformDataList] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            const tranformData = data.places.map((item) => {
+                const placeImgTranform = JSON.parse(item.placeImg);
+                console.log("placeImgTranform", placeImgTranform.imgs);
+                return {
+                    placeImgs: placeImgTranform.imgs,
+                    ...item,
+                };
+            });
+
+            setTranformDataList(tranformData);
+        }
+    }, [data]);
+
+    // const tranformData = data.places.map((item) => {
+    //     const placeImgTranform = JSON.parse(item.placeImg);
+    //     console.log("placeImgTranform", placeImgTranform.imgs);
+    //     return {
+    //         placeImgs: placeImgTranform.imgs,
+    //         ...item,
+    //     };
+    // });
+
+    useEffect(() => {
+        if (inputValue === "") {
+            setDataSearch(tranformDataList);
+            return;
+        }
+
+        const filteredResults = tranformDataList.filter((item) =>
+            item.placeName.toLowerCase().includes(inputValue.toLowerCase())
+        );
+
+        setDataSearch(filteredResults);
+    }, [tranformDataList, inputValue]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : {error.message}</p>;
 
-    console.log("data", data.places);
-
-    const tranformData = data.places.map((item) => {
-        const placeImgTranform = JSON.parse(item.placeImg);
-        console.log("placeImgTranform", placeImgTranform.imgs);
-        return {
-            placeImgs: placeImgTranform.imgs,
-            ...item,
-        };
-    });
-
-    console.log("trandata: ", tranformData);
+    console.log("trandata: ", tranformDataList);
 
     return (
         <div className=" grid grid-cols-4 gap-5">
-            {tranformData.map(
+            {dataSearch.map(
                 ({
                     id,
                     placeName,
@@ -50,6 +79,7 @@ const Cards = () => {
                 }) => (
                     <Card
                         key={id}
+                        id={id}
                         placeName={placeName}
                         placeDistance={placeDistance}
                         placeDate={placeDate}

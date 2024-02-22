@@ -3,13 +3,48 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+    createHttpLink,
+} from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
+import { setContext } from "@apollo/client/link/context";
+
+const httpLink = createHttpLink({
+    uri: "http://127.0.0.1:8000/graphql/",
+});
+
+const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem("token");
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `JWT ${token}` : "",
+        },
+    };
+});
 
 const client = new ApolloClient({
-    uri: "https://f7b7-183-80-130-6.ngrok-free.app/graphql/",
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
 });
+
+// const client = new ApolloClient({
+//     uri: "http://127.0.0.1:8000/graphql/",
+//     cache: new InMemoryCache(),
+//     request: (operation) => {
+//         const token = localStorage.getItem("token");
+//         operation.setContext({
+//             headers: {
+//                 Authorization: token ? `JWT ${token}` : "",
+//             },
+//         });
+//     },
+// });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

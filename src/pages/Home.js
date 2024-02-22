@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "../components/Nav";
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import Cards from "../components/Cards";
 import Footer from "../components/Footer";
 
 const Home = () => {
+    const [input, setInput] = useState("");
+    const handleSearch = (value) => {
+        console.log("input: ", value);
+        setInput(value);
+    };
+
     return (
         <div className="">
-            <Nav />
+            <Nav onSearch={handleSearch} />
             <div className="px-[150px] my-[50px]">
                 <Carousel
                     className="rounded-xl"
@@ -162,7 +168,7 @@ const Home = () => {
                 <h1 className="text-[34px] font-semibold mb-[20px]">
                     Top-rated Luxe homes
                 </h1>
-                <Cards />
+                <Cards inputValue={input} />
             </div>
             <div className="mt-[100px] mb-[50px]">
                 <Footer />

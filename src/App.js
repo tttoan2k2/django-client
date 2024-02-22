@@ -4,6 +4,10 @@ import TypeRoom from "./pages/TypeRoom";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Feedback from "./pages/Feedback";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Detail from "./pages/Detail";
+import Admin from "./pages/Admin";
 
 export default function App() {
     return (
@@ -14,6 +18,10 @@ export default function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about-me" element={<About />} />
                 <Route path="/feedback" element={<Feedback />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/:id" element={<Detail />} />
+                <Route path="/admin" element={<Admin />} />
             </Routes>
         </div>
     );
