@@ -33,19 +33,6 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
 });
 
-// const client = new ApolloClient({
-//     uri: "http://127.0.0.1:8000/graphql/",
-//     cache: new InMemoryCache(),
-//     request: (operation) => {
-//         const token = localStorage.getItem("token");
-//         operation.setContext({
-//             headers: {
-//                 Authorization: token ? `JWT ${token}` : "",
-//             },
-//         });
-//     },
-// });
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ApolloProvider client={client}>
