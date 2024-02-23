@@ -13,7 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-    uri: "http://127.0.0.1:8000/graphql/",
+    uri: " https://2004-1-53-36-123.ngrok-free.app/graphql/",
 });
 
 const authLink = setContext((_, { headers }) => {
